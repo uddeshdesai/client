@@ -1,9 +1,9 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Homepage from "./pages/homepage";
-import Login from "./pages/login";
 import React, { useEffect, useState } from "react";
 import PatientProfile from "./components/profile";
 import BasicExample from "./components/BasicExample.js";
+import HospitalProfile from "./components/hospital_details"
 
 
 function App() {
@@ -23,9 +23,9 @@ function App() {
    <Routes> 
 
       <Route path="/" element={<BasicExample user={user}/>}>
-        
+        <Route path="/hospital_details" element={<HospitalProfile/>}/>  
         <Route path="" element={<Homepage />}/>
-      <Route  path="profile" element={<PatientProfile/>}/>
+        <Route  path="profile" element={<PatientProfile/>}/>
       </Route>
       
    </Routes>

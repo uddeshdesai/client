@@ -3,11 +3,59 @@ import React, {useState, useEffect} from "react";
 import { Row } from "react-bootstrap";
 import Carousel from 'react-bootstrap/Carousel';
 import Container from "react-bootstrap/esm/Container";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Placeholder from 'react-bootstrap/Placeholder';
-import Appointments from './appointment';
+import HospitalCard from "../components/hospitalcard";
   const Homepage = () => {
+    const [HospitalDetails, setHospitalDetails] = useState({
+      "message": "Hospital profile fetched successfully",
+      "near_you": [
+        {
+          "_id": "6441bb601f2174059abafc4d",
+          "email": "uddesh.desai@ritgoa.ac.in",
+          "city": "Bicholim",
+          "state": "Goa",
+          "hospital_desc": "Best hospital of all",
+          "hospital_latitude": null,
+          "hospital_longitude": null,
+          "hospital_name": "Ponda Govt. Hospital",
+          "hospital_phone": "985487155212"
+        },
+        {
+          "_id": "6441bb601f2174059abafc4d",
+          "email": "uddesh.desai@ritgoa.ac.in",
+          "city": "Bicholim",
+          "state": "Goa",
+          "hospital_desc": "Multispeciality hospital in the state",
+          "hospital_latitude": null,
+          "hospital_longitude": null,
+          "hospital_name": "Ponda Govt. Hospital",
+          "hospital_phone": "985487155212"
+        },
+        {
+          "_id": "6441bb601f2174059abafc4d",
+          "email": "uddesh.desai@ritgoa.ac.in",
+          "city": "Bicholim",
+          "state": "Goa",
+          "hospital_desc": null,
+          "hospital_latitude": null,
+          "hospital_longitude": null,
+          "hospital_name": "Ponda Govt. Hospital",
+          "hospital_phone": "985487155212"
+        }
+      ],
+      "all_hospitals": [
+        {
+          "_id": "6441bb601f2174059abafc4d",
+          "email": "uddesh.desai@ritgoa.ac.in",
+          "city": "Bicholim",
+          "state": "Goa",
+          "hospital_desc": null,
+          "hospital_latitude": null,
+          "hospital_longitude": null,
+          "hospital_name": "Ponda Govt. Hospital",
+          "hospital_phone": "985487155212"
+        }
+      ]
+    })
     const [user, setUser] = useState({});
     useEffect(() => {
       const theUser = localStorage.getItem("user");
@@ -23,7 +71,7 @@ import Appointments from './appointment';
       <Carousel.Item>
         <img
           className="d-block w-100 h-75"
-          src="https://plus.unsplash.com/premium_photo-1664303139524-2f8523f4c327?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80"
+          src="https://t3.ftcdn.net/jpg/02/11/15/66/360_F_211156620_CeBr5etdTNXLb231sFcQ8M9YD1OY5IW8.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -60,78 +108,16 @@ import Appointments from './appointment';
     <Container>
 
       <Container fluid className="App py-2 overflow-hidden mt-5">
-      <Row className="justify-content-center">Some text here</Row>
+      <Row className="justify-content-center">Choose and Book</Row>
       <Row className="card-example d-flex flex-row flex-nowrap overflow-auto">
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-              <Button variant="primary" onClick={Appointments}>Go somewhere</Button>
-            </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
-          </Card.Body>
-        </Card>
-        <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to
-              additional content.{" "}
-            </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
-          </Card.Body>
-        </Card>
-        <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This card has even longer content
-              than the first to show that equal height action.
-            </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
-          </Card.Body>
-        </Card><Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This card has even longer content
-              than the first to show that equal height action.
-            </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
-          </Card.Body>
-        </Card><Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This card has even longer content
-              than the first to show that equal height action.
-            </Card.Text>
-            <footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </footer>
-          </Card.Body>
-        </Card>
+        {HospitalDetails.near_you.map((hospital)=>(
+          <>
+          <HospitalCard hospital={hospital}/>
+          </>
+        ))}
+      
+      
       </Row>
-      <Row>There's some text in here too</Row>
     </Container>
     </Container>
     

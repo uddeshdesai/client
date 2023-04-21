@@ -54,7 +54,7 @@ const handleHospGoogle = async (response) => {
       if (data?.user) {
         localStorage.setItem("user", JSON.stringify(data?.user));
         // redirect to /profile
-        window.location.href = "/profile";
+        window.location.href = "/hospital_details";
       }
 
       throw new Error(data?.message || data);
@@ -108,7 +108,7 @@ function BasicExample({user}) {
   };
   const onHospSuccessLogin = async (res) => {
     const profile = res.profileObj;
-    console.log(profile, "profile");
+    console.log(profile, "hospital_details");
     const access_token = gapi.auth.getToken().access_token;
     console.log(access_token)
     setGoogleAuth(gapi.auth2.getAuthInstance());
@@ -124,38 +124,22 @@ function BasicExample({user}) {
     <>
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">MediBook</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            {
-              !user.email? 
-              <>
-              <GoogleLogin
-            clientId={clientId}
-            render={(renderProps) => (
-              <button
-                //variant="link"
-                size="small"
-                color="neutral"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                User Signup
-              </button>
-         
-              
-            )}
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/hospital_details">Hospitals</Nav.Link>
             
-            buttonText="Login"
-            onSuccess={onSuccessLogin}
-            onFailure={onFailureLogin}
-            cookiePolicy={"single_host_origin"}
-          /></>: <button onClick={logout}>logout</button>
-            }
-           
+           {
+            user.email?
+            <>
+            <Nav.Link href="/profile">Profile</Nav.Link>
+            </>
+            :
+            <></>
+           }
+
             {
               !user.email? 
               <>
@@ -166,10 +150,11 @@ function BasicExample({user}) {
                 variant="primary"
                 size="small"
                 color="neutral"
+                className='nav-link'
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
               >
-                Hospital Signup
+                Hospital Login
               </button>
          
               
@@ -178,9 +163,36 @@ function BasicExample({user}) {
             onSuccess={onHospSuccessLogin}
             onFailure={onHospFailureLogin}
             cookiePolicy={"single_host_origin"}
-          /></>: <button onClick={logout}>logout</button>
+          /></>: <> </>
             }
+            {
+              !user.email? 
+              <>
+              <GoogleLogin
+            clientId={clientId}
+            render={(renderProps) => (
+              <button
+                //variant="link"
+                size="small"
+                color="neutral"
+                className='nav-link'
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                style={{ marginLeft: "auto" }}
+              >
+                User Login
+              </button>
+         
+              
+            )}
             
+            buttonText="Login"
+            onSuccess={onSuccessLogin}
+            onFailure={onFailureLogin}
+            cookiePolicy={"single_host_origin"}
+            
+          /></>: <button onClick={logout} className='nav-link text-danger mx-5'>logout</button>
+            }
           
           
           </Nav>
