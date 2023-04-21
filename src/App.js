@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import Homepage from "./pages/homepage";
+import Login from "./pages/login";
+import React, { useEffect, useState } from "react";
+import PatientProfile from "./components/profile";
+import BasicExample from "./components/BasicExample.js";
+
 
 function App() {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const theUser = localStorage.getItem("user");
+
+    if (theUser && !theUser.includes("undefined")) {
+      setUser(JSON.parse(theUser));
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    
+   <>
+   <BrowserRouter>
+   <Routes> 
+
+      <Route path="/" element={<BasicExample user={user}/>}>
+        
+        <Route path="" element={<Homepage />}/>
+      <Route  path="profile" element={<PatientProfile/>}/>
+      </Route>
+      
+   </Routes>
+   </BrowserRouter>
+   
+  </>);
 }
 
 export default App;
